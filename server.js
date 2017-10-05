@@ -1,25 +1,31 @@
+"use strict";
+
 require("coffee-script/register");
 require("express-namespace");
-var express = require("express");
+const express = require("express");
 
-bodyParser = require("body-parser");
-fs = require("fs");
-//docs = require("express-mongoose-docs")
-cookieParser = require("cookie-parser");
-methodOverride = require("method-override");
-errorHandler = require("errorhandler");
-helmet = require("helmet");
-csrf = require("csurf");
+const bodyParser = require("body-parser");
+const fs = require("fs");
+// docs = require("express-mongoose-docs")
+const cookieParser = require("cookie-parser");
+const methodOverride = require("method-override");
+const errorHandler = require("errorhandler");
+const helmet = require("helmet");
+const csrf = require("csurf");
 
 // Initiating the App Object from express
-app = express();
+const app = express();
 app.disable("x-powered-by");
 
 // Defining modules allowed to be used with App
 app.use(bodyParser.json());
+app.use(methodOverride());
+app.use(errorHandler());
+app.use(helmet());
+app.use(csrf());
 app.use(bodyParser.urlencoded({ extende: true }));
 app.use(cookieParser());
-app.use(express.static(__dirname + "/assets"));
+app.use(express.static(`${__dirname}/assets`));
 
 // Setting different options to be used within the App
 app.set("view engine", "jade");
@@ -34,16 +40,16 @@ fs.readdir("routers", (err, routes) => {
   if (err) console.log("No router files found");
   console.log("Register routers");
   routes.forEach(file => {
-    require("./routers/" + file);
+    require(`./routers/${file}`); // eslint-disable-line global-require
   });
 });
 
 // End Of Configuring API Routers
 
-server = require("http").createServer(app);
-port = require("./port");
-pjson = require("./package.json");
-mongoose = require("mongoose");
+const server = require("http").createServer(app);
+const port = require("./port");
+const pjson = require("./package.json");
+const mongoose = require("mongoose");
 
 mongoose.connect(
   "srvs:s1r2v3s@ds033973-a0.mongolab.com:33973/srvs,ds033973-a1.mongolab.com:33973/srvs?replicaSet=rs-ds033973"
@@ -58,7 +64,7 @@ fs.readdir("models", (err, models) => {
   if (err) console.log("No model files found");
   console.log("Registering models now");
   models.forEach(file => {
-    require("./models/" + file);
+    require(`./models/${file}`); // eslint-disable-line global-require
   });
 });
 server.listen(port, () => {
@@ -69,6 +75,6 @@ server.listen(port, () => {
     port,
     "Development"
   );
-  console.log("Server's UID is now " + process.getuid());
+  console.log(`Server's UID is now ${process.getuid()}`);
 });
 module.exports = app;
