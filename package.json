@@ -1,0 +1,25 @@
+{
+  "name": "talkforms",
+  "version": "1.0.0",
+  "description": "OpenSource alternative to typeform reducing pain point to conditional forms",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/harshitanand/talkforms.git"
+  },
+  "keywords": [
+    "NodeJs",
+    "Express",
+    "Yarn",
+    "React"
+  ],
+  "author": "Harshit Anand <harshitanand94@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/harshitanand/talkforms/issues"
+  },
+  "homepage": "https://github.com/harshitanand/talkforms#readme"
+}
