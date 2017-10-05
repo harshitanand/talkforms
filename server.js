@@ -30,10 +30,10 @@ app.set("trust proxy", 1);
    * Back-end routes are mainly for making API requests
   */
 
-fs.readdir("routers", function(err, routes) {
+fs.readdir("routers", (err, routes) => {
   if (err) console.log("No router files found");
   console.log("Register routers");
-  routes.forEach(function(file) {
+  routes.forEach(file => {
     require("./routers/" + file);
   });
 });
@@ -48,20 +48,20 @@ mongoose = require("mongoose");
 mongoose.connect(
   "srvs:s1r2v3s@ds033973-a0.mongolab.com:33973/srvs,ds033973-a1.mongolab.com:33973/srvs?replicaSet=rs-ds033973"
 );
-mongoose.connection.on("connected", function() {
+mongoose.connection.on("connected", () => {
   console.log("Connected to MongoDB");
 });
-mongoose.connection.on("error", function() {
+mongoose.connection.on("error", () => {
   console.log("Error Occured in Mongo Connection");
 });
-fs.readdir("models", function(err, models) {
+fs.readdir("models", (err, models) => {
   if (err) console.log("No model files found");
   console.log("Registering models now");
-  models.forEach(function(file) {
+  models.forEach(file => {
     require("./models/" + file);
   });
 });
-server.listen(port, function() {
+server.listen(port, () => {
   console.log(
     "%s version %s running on port %d in %s mode",
     pjson.name,
